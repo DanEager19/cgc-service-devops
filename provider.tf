@@ -8,6 +8,10 @@ terraform {
 }
 variable "do_token" {}
 
+variable "sshkey" {
+  description = "Public ssh key"
+  default = "ssh-rsa [insert key here]"
+}
 provider "digitalocean" {
   token = var.do_token
 }
