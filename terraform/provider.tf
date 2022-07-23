@@ -9,6 +9,15 @@ terraform {
 variable "do_token" {}
 
 variable "pvt_key" {}
+
+variable "discord_api_token" {}
+
+variable "guild_id" {}
+
+variable "client_id" {}
+
+variable "sendgrid_api_key" {}
+
 provider "digitalocean" {
   token = var.do_token
 }
