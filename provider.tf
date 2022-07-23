@@ -33,7 +33,9 @@ resource "digitalocean_droplet" "chefbot" {
     provisioner "remote-exec" {
       inline = [
         "export PATH=$PATH:/usr/bin",
-        "sudo apt update"
+        "git clone https://github.com/DanEager19/kitchenware-request-api",
+        "git clone https://github.com/DanEager19/chef-bot",
+        "sudo apt-get update && sudo apt-get upgrade",
       ]
     }
 
