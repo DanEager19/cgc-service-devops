@@ -14,11 +14,17 @@ resource "digitalocean_droplet" "cgc-services" {
   provisioner "remote-exec" {
     inline = [
       "export PATH=$PATH:/usr/bin",
-      "sudo apt-get update && sudo apt-get upgrade",
-      "sudo apt-get install git ufw docker.io nodejs npm",
+      "apt-get update && apt-get upgrade -y",
+      "apt-get install git ufw -y",
+      "git clone https://github.com/DanEager19/cgc-service-devops",
+      "cd cgc-service-devops",
+      "./docker.sh",
       "git clone https://github.com/DanEager19/kitchenware-request-api",
       "git clone https://github.com/DanEager19/chef-bot",
-      "echo var.discord_api_token > ./chef-bot/.env"
+      "echo ${var.discord_api_token} > ./chef-bot/.env",
+      "echo ${var.guild_id} > ./chef-bot/.env",
+      "echo ${var.client_id} > ./chef-bot/.env",
+      "echo ${var.sendgrid_api_key} > ./kitchenware-requst-api/.env"
     ]
   }
 }
