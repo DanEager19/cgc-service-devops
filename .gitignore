@@ -1,3 +1,4 @@
 kitchenware-request-api
 chef-bot
 .terraform
+*tfstate*
