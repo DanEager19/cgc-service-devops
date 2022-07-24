@@ -1,0 +1,35 @@
+name: Deploy to digital ocean via terraform
+on:
+  push: 
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  deploy-terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.10
+      - name: Terraform init
+        id: init
+        run: terraform init
+      - name: Terraform apply
+        id: apply
+        env:
+          PVT_KEY: ${{ secrets.PVT_KEY }}
+          DO_TOKEN: ${{ secrets.DO_TOKEN }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          GUILD_ID: ${{ secrets.GUILD_ID }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          SENDGRID_API_TOKEN: ${{ secrets.SENDGRID_API_TOKEN }}
+        run: terraform apply -auto-approve \
+          -var "do_token=$DO_TOKEN" \
+          -var "pvt_key=$PVT_KEY" \
+          -var "discord_api_token=$DISCORD_TOKEN" \
+          -var "guild_id=$GUILD_ID" \
+          -var "client_id=$CLIENT_ID" \
+          -var "sendgrid_api_token=$SENDGRID_API_TOKEN"

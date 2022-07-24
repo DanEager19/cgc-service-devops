@@ -28,11 +28,11 @@ resource "digitalocean_droplet" "cgc-services" {
       "git clone https://github.com/DanEager19/chef-bot  /root/cgc-service-devops/chef-bot",
       "touch /root/cgc-service-devops/kitchenware-request-api/.env",
       "touch /root/cgc-service-devops/chef-bot/.env",
-      "echo TOKEN=\"${var.discord_api_token}\" >> /root/cgc-service-devops/chef-bot/.env",
-      "echo GUILD_ID=\"${var.guild_id}\" >> /root/cgc-service-devops/chef-bot/.env",
-      "echo CLIENT_ID\"${var.client_id}\" >> /root/cgc-service-devops/chef-bot/.env",
-      "echo SENDGRID_API_KEY=\"${var.sendgrid_api_key}\" >> /root/cgc-service-devops/kitchenware-request-api/.env",
-      "cd /root/cgc-service-devops && docker compose up --build -d"
+      "echo TOKEN=${var.discord_api_token} >> /root/cgc-service-devops/chef-bot/.env",
+      "echo GUILD_ID=${var.guild_id} >> /root/cgc-service-devops/chef-bot/.env",
+      "echo CLIENT_ID${var.client_id} >> /root/cgc-service-devops/chef-bot/.env",
+      "echo SENDGRID_API_KEY=${var.sendgrid_api_key} >> /root/cgc-service-devops/kitchenware-request-api/.env",
+      "docker compose -f /root/cgc-service-devops/docker-compose.yml up --build -d "
     ]
   }
 }
