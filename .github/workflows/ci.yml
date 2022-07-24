@@ -14,19 +14,20 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.10
+      - name: Copy ssh key
+        run: echo ${{secrets.PVT_KEY}} >> $HOME/.ssh/id_rsa 
       - name: Terraform init
         id: init
         run: terraform init
       - name: Terraform plan
         id: plan
         env:
-          TF_VAR_pvt_key: ${{ secrets.PVT_KEY }}
           TF_VAR_do_token: ${{ secrets.DO_TOKEN }}
           TF_VAR_discord_api_token: ${{ secrets.DISCORD_TOKEN }}
           TF_VAR_guild_id: ${{ secrets.GUILD_ID }}
           TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
           TF_VAR_sendgrid_api_key: ${{ secrets.SENDGRID_API_TOKEN }}
-        run: terraform plan -no-color
+        run: terraform plan -no-color -var "pvt_key=$HOME/.ssh/id_rsa"
       - name: Terraform apply
         id: apply
         env:
@@ -36,4 +37,4 @@ jobs:
           TF_VAR_guild_id: ${{ secrets.GUILD_ID }}
           TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
           TF_VAR_sendgrid_api_key: ${{ secrets.SENDGRID_API_TOKEN }}
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var "pvt_key=$HOME/.ssh/id_rsa"
