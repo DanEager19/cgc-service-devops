@@ -15,6 +15,7 @@ jobs:
         with:
           key: ${{ secrets.PVT_KEY }}
           name: id_rsa
+          known_hosts: ''
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
