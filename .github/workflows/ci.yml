@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install SSH key
-        run: 'echo "$SSH_KEY" > $HOME/.ssh/id_rsa'
+        run: 'touch $HOME/.ssh/id_rsa && echo "$SSH_KEY" > $HOME/.ssh/id_rsa'
         shell: 'bash'
         env:
           SSH_KEY: ${{ secrets.PVT_KEY }}
