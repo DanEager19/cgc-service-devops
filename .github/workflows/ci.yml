@@ -20,20 +20,20 @@ jobs:
       - name: Terraform plan
         id: plan
         env:
-          PVT_KEY: ${{ secrets.PVT_KEY }}
-          DO_TOKEN: ${{ secrets.DO_TOKEN }}
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          GUILD_ID: ${{ secrets.GUILD_ID }}
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          SENDGRID_API_TOKEN: ${{ secrets.SENDGRID_API_TOKEN }}
-        run: terraform plan -auto-approve -var "do_token=$DO_TOKEN" -var "pvt_key=$PVT_KEY" -var "discord_api_token=$DISCORD_TOKEN" -var "guild_id=$GUILD_ID" -var "client_id=$CLIENT_ID" -var "sendgrid_api_token=$SENDGRID_API_TOKEN"
+          TF_VAR_pvt_key: ${{ secrets.PVT_KEY }}
+          TF_VAR_do_token: ${{ secrets.DO_TOKEN }}
+          TF_VAR_discord_api_token: ${{ secrets.DISCORD_TOKEN }}
+          TF_VAR_guild_id: ${{ secrets.GUILD_ID }}
+          TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
+          TF_VAR_sendgrid_api_key: ${{ secrets.SENDGRID_API_TOKEN }}
+        run: terraform plan -no-color
       - name: Terraform apply
         id: apply
         env:
-          PVT_KEY: ${{ secrets.PVT_KEY }}
-          DO_TOKEN: ${{ secrets.DO_TOKEN }}
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          GUILD_ID: ${{ secrets.GUILD_ID }}
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          SENDGRID_API_TOKEN: ${{ secrets.SENDGRID_API_TOKEN }}
-        run: terraform apply -auto-approve -var "do_token=$DO_TOKEN" -var "pvt_key=$PVT_KEY" -var "discord_api_token=$DISCORD_TOKEN" -var "guild_id=$GUILD_ID" -var "client_id=$CLIENT_ID" -var "sendgrid_api_token=$SENDGRID_API_TOKEN"
+          TF_VAR_pvt_key: ${{ secrets.PVT_KEY }}
+          TF_VAR_do_token: ${{ secrets.DO_TOKEN }}
+          TF_VAR_discord_api_token: ${{ secrets.DISCORD_TOKEN }}
+          TF_VAR_guild_id: ${{ secrets.GUILD_ID }}
+          TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
+          TF_VAR_sendgrid_api_key: ${{ secrets.SENDGRID_API_TOKEN }}
+        run: terraform apply -auto-approve
