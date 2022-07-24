@@ -10,6 +10,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.PVT_KEY }}
+          name: id_rsa
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
@@ -25,7 +30,7 @@ jobs:
           TF_VAR_guild_id: ${{ secrets.GUILD_ID }}
           TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
           TF_VAR_sendgrid_api_key: ${{ secrets.SENDGRID_API_TOKEN }}
-        run: terraform plan -no-color -var  "pvt_key=${{secrets.PVT_KEY}}"
+        run: terraform plan -no-color -var "pvt_key=$HOME/.ssh/id_rsa"
       - name: Terraform apply
         id: apply
         env:
@@ -34,4 +39,4 @@ jobs:
           TF_VAR_guild_id: ${{ secrets.GUILD_ID }}
           TF_VAR_client_id: ${{ secrets.CLIENT_ID }}
           TF_VAR_sendgrid_api_key: ${{ secrets.SENDGRID_API_TOKEN }}
-        run: terraform apply -auto-approve -var "pvt_key=${{secrets.PVT_KEY}}"
+        run: terraform apply -auto-approve -var "pvt_key=$HOME/.ssh/id_rsa"
